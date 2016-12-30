@@ -6,20 +6,17 @@ export class DynamicComponent {
     
     public addComponent(container: ViewContainerRef, template: string) {
         @Component({template: template})
-        class TemplateComponent {
-
-            onTap(args) {
-                console.log('onTapCalled()');
-            }
-        }
+        class TemplateComponent {}
 
         @NgModule({declarations: [TemplateComponent]})
         class TemplateModule {}
 
         const mod = this.compiler.compileModuleAndAllComponentsSync(TemplateModule);
         const factory = mod.componentFactories.filter((comp) =>
-        comp.componentType === TemplateComponent
+            comp.componentType === TemplateComponent
         );
         const component = container.createComponent(factory[0]);
+    
+        return TemplateComponent;
     }
 }

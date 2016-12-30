@@ -13,12 +13,16 @@ export class AppComponent implements AfterViewInit {
     ){};
       
     ngAfterViewInit() {
-        this._dynamicComponent.addComponent(
-            this.container,
-            ` <Label text="Hello, World!" class="h1 text-center"> </Label>
-              <Button text="Tap Again" (tap)="onTap()" class="btn btn-primary btn-active"> </Button>  
-            `
-        )
+        var component = <any> 
+            this._dynamicComponent.addComponent(
+                this.container, `
+                <Label text="Hello, World!" class="h1 text-center"> </Label>
+                <Button text="Tap Again" (tap)="onTap()" class="btn btn-primary btn-active"> </Button>  
+             ` );
+    
+        component.prototype.onTap = () => {
+            this.counter++;
+        } 
     }
 
     public counter: number = 16;
